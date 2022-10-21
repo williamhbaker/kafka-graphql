@@ -38,7 +38,7 @@ For more details about setting up Flow, see the docs for [Kafka capture connecto
 
 ### Configuring Kafka and Postgres
 
-Once the capture and materialization are published and running, no further configuration is required for Kafka or Postgres. The Postgres materialization will automatically create a table in your database that you specificy in the materialization configuration.
+Once the capture and materialization are published and running, no further configuration is required for Kafka or Postgres. The Postgres materialization will automatically create a table in your database that you specify in the materialization configuration.
 
 ### Querying the Data with GraphQL
 
@@ -76,8 +76,7 @@ It would produce data in the form of:
         "price": 84.85,
         "symbol": "NVDA",
         "Size": 238257
-      },
-      ...etc
+      }
     ]
   }
 }
