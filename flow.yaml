@@ -1,0 +1,47 @@
+collections:
+  acmeCo/kql-trades:
+    schema:
+      type: object
+      reduce: { strategy: merge }
+      properties:
+        Symbol: { type: string }
+        Price:
+          type: number
+          reduce: { strategy: lastWriteWins }
+        Size:
+          type: integer
+          reduce: { strategy: sum }
+      required: [ID, Symbol, Size]
+    key:
+      - /Symbol
+
+captures:
+  acmeCo/kql-kafka-capture:
+    endpoint:
+      connector:
+        image: "ghcr.io/estuary/source-kafka:v1"
+        config:
+          # Add your specific connection information here, see https://docs.estuary.dev/reference/Connectors/capture-connectors/apache-kafka/.
+          bootstrap_servers:
+            - ${HOST}:${PORT}
+    bindings:
+      - resource:
+          stream: trades
+          syncMode: incremental
+        target: acmeCo/kql-trades
+
+materializations:
+  acmeCo/kql-postgres-materialization:
+    endpoint:
+      connector:
+        image: "ghcr.io/estuary/materialize-postgres:v3"
+        config:
+          # Add your specific connection information here, see https://docs.estuary.dev/reference/Connectors/materialization-connectors/PostgreSQL/.
+          address: ${HOST}:${PORT}
+          user: ${PG_USER}
+          password: ${PG_PASSWORD}
+          database: ${PG_PORT}
+    bindings:
+      - resource:
+          table: trades
+        source: acmeCo/kql-trades
