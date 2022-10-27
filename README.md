@@ -8,7 +8,7 @@ queries or real-time subscriptions of the data in the database.
 To get started, you will need:
 
 - An Estuary Flow account. Sign up at https://www.estuary.dev/.
-- A Kafka cluster. Various managed providers exist for this, or try the `docker-compose.yaml` for an
+- A Kafka cluster. Various managed providers exist for this, or try the `docker-compose.yaml` (copy the `.env-template` file to `.env` and fill out the required values) for an
   easy way to run Kafka for demo purposes in [KRaft
   mode](https://developer.confluent.io/learn/kraft/).
 - A Postgres database. Managed Postgres can also be used here. The `docker-compose.yaml` also
